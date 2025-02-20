@@ -1,0 +1,346 @@
+@layer ultities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.ttl {
+  text-align: center;
+  color: #4da6ff;
+}
+
+.adder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  border: none;
+  background-color: #ffffff;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+th {
+  background-color: #5fafff;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+tr {
+  transition: background-color 0.3s ease;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  width: 40%;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 20%;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 20%;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  width: 20%;
+}
+
+tr:nth-child(odd) {
+  background-color: #f4f4f4;
+}
+
+tr:hover {
+  background-color: #e0f7e9;
+}
+
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+td:last-child {
+  border-bottom: none;
+}
+
+caption {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  text-align: left;
+}
+
+.delete-btn {
+  background-color: #ff0000;
+  padding: 12px 24px;
+  margin: 5px;
+  font-size: large;
+  color: #f8f8f8;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #f20000;
+  transform: translateY(-1px);
+}
+
+.delete-btn:active {
+  background-color: #f20000;
+  transform: translateY(0);
+}
+
+.edit-btn {
+  background-color: #4caf50;
+  padding: 12px 24px;
+  margin: 5px;
+  font-size: large;
+  color: #f8f8f8;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #48a64c;
+  transform: translateY(-1px);
+}
+
+.edit-btn:active {
+  background-color: #48a64c;
+  transform: translateY(0);
+}
+
+.clear-btn {
+  background-color: #ff0000;
+  padding: 12px 24px;
+  margin: 5px;
+  font-size: large;
+  color: #f8f8f8;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background-color: #f20000;
+  transform: translateY(-1px);
+}
+
+.clear-btn:active {
+  background-color: #f20000;
+  transform: translateY(0);
+}
+
+.complete-all-btn {
+  background-color: #4caf50;
+  padding: 12px 24px;
+  margin: 5px;
+  font-size: large;
+  color: #f8f8f8;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.complete-all-btn:hover {
+  background-color: #48a64c;
+  transform: translateY(-1px);
+}
+
+.complete-all-btn:active {
+  background-color: #48a64c;
+  transform: translateY(0);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-actions button {
+  margin: 10px;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-actions button:hover {
+  background-color: #45a049;
+}
+
+.modal-actions button:last-child {
+  background-color: #f44336;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #e53935;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+  cursor: pointer;
+  position: relative;
+  margin-right: 10px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "✓";
+  position: absolute;
+  top: -3px;
+  left: 3px;
+  color: white;
+  font-size: 16px;
+}
+
+input[type="checkbox"]:hover {
+  border-color: #3e8e41;
+}
+
+label {
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+label input[type="checkbox"]:checked + span {
+  color: #4caf50;
+}
+
+label span {
+  transition: color 0.3s;
+}
+
+input.edit-lbl {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  outline: none;
+}
+
+input.edit-lbl:focus {
+  border-color: #4caf50;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+input.edit-lbl::placeholder {
+  color: #aaa;
+  font-size: 14px;
+  font-style: italic;
+}
+
+input.edit-lbl:hover {
+  border-color: #3e8e41;
+}
+
+input.txt-lbl {
+  padding: 10px 14px;
+  border: 2px solid #b0c4de;
+  border-radius: 6px;
+  background-color: #eef4ff;
+  color: #222;
+  font-size: 15px;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+  outline: none;
+}
+
+input.txt-lbl:focus {
+  border-color: #007bff;
+  background-color: #ffffff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+}
+
+input.txt-lbl::placeholder {
+  color: #778899;
+  font-size: 13px;
+  font-style: normal;
+}
+
+input.txt-lbl:hover {
+  border-color: #0056b3;
+}
+
+.add-button {
+  background-color: #5fafff;
+  padding: 12px 24px;
+  margin: 5px;
+  font-size: large;
+  color: #f8f8f8;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #4da6ff;
+  transform: translateY(-1px);
+}
+
+.add-button:active {
+  background-color: #4da6ff;
+  transform: translateY(0);
+}
