@@ -8,6 +8,8 @@ export default function TodoApp() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   const [editTaskName, setEditTaskName] = useState("");
+  const [filter, setFilter] = useState("all");
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem("tasks"));
@@ -19,6 +21,24 @@ export default function TodoApp() {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("darkMode") === "true";
+    setDarkMode(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   const addTask = () => {
     if (!taskName.trim()) return;
@@ -62,74 +82,92 @@ export default function TodoApp() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const filteredTasks = tasks.filter((task) =>
-    task.name.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const filteredTasks = tasks
+    .filter((task) => {
+      if (filter === "completed") return task.completed;
+      if (filter === "ncompleted") return !task.completed;
+      return true;
+    })
+    .filter((task) =>
+      task.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
 
   return (
-    <main className="todo-container">
-      <header className="todo-header">
-        <h1>Todo APP</h1>
+    <main className="todo">
+      <header className="todo__header">
+        <h1 className="todo__title">Todo APP</h1>
+        <button onClick={toggleDarkMode} className="todo__dark-mode-button">
+          {darkMode ? "🌙" : "☀️"}
+        </button>
       </header>
 
-      <section className="search-section">
+      <section className="todo__search">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-input"
-          placeholder="Aradiginiz görevi giriniz.."
+          className="todo__search-input"
+          placeholder="Aradiginiz gorevi giriniz.."
         />
+        <select
+          className="todo__filter"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="all">Tum Gorevler</option>
+          <option value="completed">Tamamlanan</option>
+          <option value="ncompleted">Tamamlanmayan</option>
+        </select>
       </section>
 
-      <section className="todo-list">
+      <section className="todo__list">
         {filteredTasks.length === 0 ? (
-          <section className="empty-message">
-            <span className="empty-icon">🔍</span>
-            <p>Henüz bir görev eklenmedi!</p>
+          <section className="todo__empty-message">
+            <span className="todo__empty-icon">🔍</span>
+            <p className="todo__empty-text">Henuz bir gorev eklenmedi!</p>
           </section>
         ) : (
-          <ul>
+          <ul className="todo__task-list">
             {filteredTasks.map((task) => (
               <li
                 key={task.id}
-                className={`task-item ${task.completed ? "completed" : ""}`}
+                className={`todo__task-item ${task.completed ? "todo__task-item--completed" : ""}`}
               >
                 <input
                   type="checkbox"
                   checked={task.completed}
                   onChange={() => toggleCompletion(task.id)}
-                  className="checkbox"
+                  className="todo__checkbox"
                 />
                 {editingTask === task.id ? (
                   <input
                     type="text"
                     value={editTaskName}
                     onChange={(e) => setEditTaskName(e.target.value)}
-                    className="edit-input"
+                    className="todo__edit-input"
                   />
                 ) : (
-                  <span>{task.name}</span>
+                  <span className="todo__task-name">{task.name}</span>
                 )}
-                <section className="task-actions">
+                <section className="todo__task-actions">
                   {editingTask === task.id ? (
                     <button
                       onClick={() => saveEdit(task.id)}
-                      className="save-button"
+                      className="todo__save-button"
                     >
                       💾
                     </button>
                   ) : (
                     <button
                       onClick={() => startEditing(task)}
-                      className="edit-button"
+                      className="todo__edit-button"
                     >
                       ✏️
                     </button>
                   )}
                   <button
                     onClick={() => deleteTask(task.id)}
-                    className="delete-button"
+                    className="todo__delete-button"
                   >
                     🗑️
                   </button>
@@ -140,35 +178,35 @@ export default function TodoApp() {
         )}
       </section>
 
-      <section className="task-input-container">
-        <button onClick={deleteAllTasks} className="delete-all-button">
+      <section className="todo__input-container">
+        <button onClick={deleteAllTasks} className="todo__delete-all-button">
           🧹
         </button>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="add-button"
+          className="todo__add-button"
         ></button>
       </section>
 
       {isModalOpen && (
-        <section className="modal-overlay">
-          <section className="modal-content">
-            <h2 className="modal-text">Görev Ekleme</h2>
+        <section className="todo__modal-overlay">
+          <section className="todo__modal-content">
+            <h2 className="todo__modal-text">Gorev Ekleme</h2>
             <input
               type="text"
               value={taskName}
               onChange={(e) => setTaskName(e.target.value)}
-              className="task-input"
-              placeholder="Görev adiniz.."
+              className="todo__task-input"
+              placeholder="Gorev adiniz.."
             />
-            <section className="modal-actions">
+            <section className="todo__modal-actions">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="cancel-button"
+                className="todo__cancel-button"
               >
-                İptal Et
+                Iptal Et
               </button>
-              <button onClick={addTask} className="confirm-button">
+              <button onClick={addTask} className="todo__confirm-button">
                 Ekle
               </button>
             </section>
